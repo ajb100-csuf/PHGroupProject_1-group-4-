@@ -1,4 +1,5 @@
 GROUP 4: Alyssa Bautista, Salvador Marquez, and Isabella Velazquez
+Group Leader: Isabella Velazquez
 
 In this group project, we aim to act as a mock public health research team to conduct an analysis of health data from a population health survey.
 The dataset used comes from the US National Cancer Institute Health Information National Trend Survey for the year 2020.
