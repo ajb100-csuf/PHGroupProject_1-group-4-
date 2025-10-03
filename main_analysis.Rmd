@@ -1,0 +1,147 @@
+---
+title: "PH Group Project 1 Group 4"
+output: html_document
+date: "2025-10-06"
+author: Group 4: Alyssa Bautista, Salvador Marquez, Isabella Velazquez
+---
+
+# Introduction
+Main file for the group project.
+
+# Part A: Data Management & Wrangling
+To be completed
+
+# Part B: Descriptive Analysis
+To be completed
+
+# Part C: Univariate visualization
+## Visualizations & Categorical variables
+
+# Load packages
+library(tidyverse)
+library(skimr)
+
+# Import the dataset 
+hints_data <- read.csv("~/Downloads/HINTSData_2020_clean.csv")
+
+# Shows first rows
+str(hints_data)
+head(hints_data)
+
+## Plot bar plots
+
+# QualityCare barplot
+barplot(table(hints_data$QualityCare),
+        main = "Distribution of Quality of Care",
+        xlab = "Quality of Care",
+        ylab = "Count",
+        col = "blue")
+
+# RaceEthn5 barplot
+barplot(table(hints_data$RaceEthn5),
+        main = "Distribution of Race/Ethnicity",
+        xlab = "Race/Ethnicity",
+        ylab = "Count",
+        col = "green")
+
+# Age histogram
+hist(hints_data$Age,
+     main = "Distribution of Age",
+     xlab = "Age",
+     col = "pink")
+
+# BMI histogram
+hist(hints_data$BMI,
+     main = "Distribution of BMI",
+     xlab = "BMI",
+     col = "orange")
+
+## ggplot2 Plots
+colnames(hints_data)
+hints_data$QualityCare <- as.factor(hints_data$QualityCare)
+library(ggplot2)
+
+# QualityCare ggplot
+ggplot(hints_data, aes(x = QualityCare)) +
+  geom_bar(fill = "blue") +
+  labs(title = "Distribution of Quality of Care")
+
+# RaceEthn5 ggplot
+ggplot(hints_data, aes(x = RaceEthn5)) +
+  geom_bar(fill = "green") +
+  labs(title = "Distribution of Race/Ethnicity")
+
+# Age ggplot 
+ggplot(hints_data, aes(x = Age)) +
+  geom_histogram(fill = "pink", color = "black") +
+  labs(title = "Distribution of Age")
+
+# BMI ggplot
+ggplot(hints_data, aes(x = BMI)) +
+  geom_histogram(fill = "orange", color = "black") +
+  labs(title = "Distribution of BMI")
+
+# Interpretations:
+  # QualityCare: Participants rate hightly of their healthcare 1 or 2 and others 4 or 5 
+  # RaceEthn5: Participants are higher in groups 2, 1, and 3 while groups 4 and 5 have smaller groups of people. 
+
+
+## R functions 
+
+# Library and import data
+library(tidyverse)
+hints_data <- read.csv("~/Downloads/HINTSData_2020_clean.csv")
+
+# Variable function factors
+hints_data$QualityCare <- as.factor(hints_data$QualityCare)
+hints_data$RaceEthn5 <- as.factor(hints_data$RaceEthn5)
+
+head(hints_data)
+colnames(hints_data)
+
+# Function
+hints_data$QualityCare <- as.factor(hints_data$QualityCare)
+hints_data$RaceEthn5 <- as.factor(hints_data$RaceEthn5)
+
+# Call function 
+my_visual_func_I(hints_data)
+  
+# Define function
+my_visual_func_I <- function(data) {
+p1 <- ggplot(data, aes(x = QualityCare)) +
+      geom_bar(fill = "blue", color = "black") +
+      labs(title = "Distribution of Quality of Care", x = "Quality of Care", y = "Count")
+
+p2 <- ggplot(data, aes(x = RaceEthn5)) +
+      geom_bar(fill = "green", color = "black") +
+      labs(title = "Distribution of Race/Ethnicity", x = "Race/Ethnicity", y = "Count")
+
+# Print plots
+print(p1)
+print(p2)
+}
+
+# Make function for continous variables
+my_visual_func_II <- function(data) {
+  
+  # Plot 1: Age
+  p1 <- ggplot(data, aes(x = Age)) +
+    geom_histogram(fill = "pink", color = "black") +
+    labs(title = "Distribution of Age", x = "Age", y = "Count")
+  
+  # Plot 2: BMI 
+  p2 <- ggplot(data, aes(x = BMI)) +
+    geom_histogram(fill = "purple", color = "black") +
+    labs(title = "Distribution of BMI", x = "BMI", y = "Count")
+  
+  # Print plots
+    print(p1)
+    print(p2)
+}
+
+# Call function
+my_visual_func_II(hints_data)
+
+## Interpretations:
+  # Age: There are more older adults that participated compared to  younger individuals in the dataset. 
+  # BMI: There are more participants who have high BMI and are most likely to be obese than the other participants. 
