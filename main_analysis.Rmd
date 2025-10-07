@@ -9,10 +9,182 @@ author: Group 4: Alyssa Bautista, Salvador Marquez, Isabella Velazquez
 Main file for the group project.
 
 # Part A: Data Management & Wrangling
-To be completed
+# ---- A1 & A2: Import dataset ----
+HINTSData_2020_clean <-read.csv("~/Desktop/HINTSData_2020_clean.csv", header=TRUE)
+HINTSData_2020_clean <-read.csv("HINTSData_2020_clean.csv",header= TRUE)
+# Check structure
+str(HINTSData_2020_clean)
+'data.frame':	2402 obs. of  17 variables:
+ $ HHID                         : int  11000103 11000420 11000804 11001045 11001070 11001281 11001559 11001703 11001909 11002025 ...
+ $ PersonID                     : chr  "11000103-01" "11000420-01" "11000804-01" "11001045-01" ...
+ $ QualityCare                  : int  1 4 2 2 3 3 1 4 1 2 ...
+ $ HealthInsurance              : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ Age                          : int  59 61 31 48 70 55 49 64 47 20 ...
+ $ BirthGender                  : int  2 1 2 2 1 2 1 1 1 1 ...
+ $ FullTimeOcc_Cat              : int  5 3 1 1 5 1 1 6 1 4 ...
+ $ MaritalStatus                : int  3 6 1 1 3 1 1 6 1 6 ...
+ $ SexualOrientation            : int  3 1 1 1 1 1 1 1 1 1 ...
+ $ AgeGrpB                      : int  3 3 1 2 4 3 2 3 2 1 ...
+ $ EducA                        : int  4 3 4 4 3 4 4 2 3 2 ...
+ $ RaceEthn5                    : int  5 5 5 5 5 5 5 5 5 5 ...
+ $ HHInc                        : int  2 1 5 5 2 5 5 1 3 4 ...
+ $ BMI                          : num  20.7 35.4 23 35.1 29.2 18.4 25.8 39.8 36.9 34.9 ...
+ $ smokeStat                    : int  3 2 3 3 2 3 3 1 2 3 ...
+ $ WeeklyMinutesModerateExercise: int  1200 0 180 60 0 540 90 0 120 0 ...
+ $ AvgDrinksPerWeek             : int  14 0 2 1 0 2 2 0 6 0 ...
+head(HINTSData_2020_clean)
+      HHID    PersonID QualityCare HealthInsurance Age BirthGender FullTimeOcc_Cat MaritalStatus
+1 11000103 11000103-01           1               1  59           2               5             3
+2 11000420 11000420-01           4               1  61           1               3             6
+3 11000804 11000804-01           2               1  31           2               1             1
+4 11001045 11001045-01           2               1  48           2               1             1
+5 11001070 11001070-03           3               1  70           1               5             3
+6 11001281 11001281-02           3               1  55           2               1             1
+  SexualOrientation AgeGrpB EducA RaceEthn5 HHInc  BMI smokeStat WeeklyMinutesModerateExercise AvgDrinksPerWeek
+1                 3       3     4         5     2 20.7         3                          1200               14
+2                 1       3     3         5     1 35.4         2                             0                0
+3                 1       1     4         5     5 23.0         3                           180                2
+4                 1       2     4         5     5 35.1         3                            60                1
+5                 1       4     3         5     2 29.2         2                             0                0
+6                 1       3     4         5     5 18.4         3                           540                2
+names(HINTSData_2020_clean)
+ [1] "HHID"                          "PersonID"                      "QualityCare"                  
+ [4] "HealthInsurance"               "Age"                           "BirthGender"                  
+ [7] "FullTimeOcc_Cat"               "MaritalStatus"                 "SexualOrientation"            
+[10] "AgeGrpB"                       "EducA"                         "RaceEthn5"                    
+[13] "HHInc"                         "BMI"                           "smokeStat"                    
+[16] "WeeklyMinutesModerateExercise" "AvgDrinksPerWeek"             
+# ---- A3: Select relevant variables ----
+install.packages("dplyr")
+library(dplyr)
+HINTS_subset <-HINTSData_2020_clean %>%
++   select(QualityCare, Age, BirthGender, smokeStat, RaceEthn5, AvgDrinksPerWeek, WeeklyMinutesModerateExercise, BMI)
+#Preview
+head(HINTS_subset)
+  QualityCare Age BirthGender smokeStat RaceEthn5 AvgDrinksPerWeek WeeklyMinutesModerateExercise  BMI
+1           1  59           2         3         5               14                          1200 20.7
+2           4  61           1         2         5                0                             0 35.4
+3           2  31           2         3         5                2                           180 23.0
+4           2  48           2         3         5                1                            60 35.1
+5           3  70           1         2         5                0                             0 29.2
+6           3  55           2         3         5                2                           540 18.4
 
 # Part B: Descriptive Analysis
-To be completed
+# --- B1: Statistical summaries for continuous variables ----
+#Age
+summary(HINTS_subset$Age)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  18.00   43.00   58.00   55.59   68.00  100.00 
+mean(HINTS_subset$Age)
+[1] 55.59117
+sd(HINTS_subset$Age)
+[1] 16.57902
+var(HINTS_subset$Age)
+[1] 274.864
+ 
+#AvgDrinksPerWeek
+summary(HINTS_subset$AvgDrinksPerWeek)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.000   0.000   3.358   4.000  70.000 
+mean(HINTS_subset$AvgDrinksPerWeek)
+[1] 3.358035
+sd(HINTS_subset$AvgDrinksPerWeek)
+[1] 6.588142
+var(HINTS_subset$AvgDrinksPerWeek)
+[1] 43.40362
+
+#WeeklyMinutesModerateExercise
+summary(HINTS_subset$WeeklyMinutesModerateExercise)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0     0.0    90.0   161.8   210.0  4620.0 
+mean(HINTS_subset$WeeklyMinutesModerateExercise)
+[1] 161.7818
+sd(HINTS_subset$WeeklyMinutesModerateExercise)
+[1] 271.1893
+var(HINTS_subset$WeeklyMinutesModerateExercise)
+[1] 73543.61
+ 
+#BMI
+summary(HINTS_subset$BMI)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  10.90   24.00   27.50   28.61   31.90   73.80 
+mean(HINTS_subset$BMI)
+[1] 28.60704
+sd(HINTS_subset$BMI)
+[1] 6.538369
+var(HINTS_subset$BMI)
+[1] 42.75028
+ 
+#Interpretations:
+#The mean age of participants is 55.59 years old. The youngest participants are 18 and the oldest are 100 years old.
+#The amount of average drinks per week that participants have range from none to 70. The average is about 3 drinks per week.
+#The mean weekly minutes of moderate exercise of participants is about 162, or 2 hours and 42 minutes.
+#Participants mean BMI was 28.6, with the highest being 72.8 and the lowest at 10.9.
+
+---- B2.I: Using dplyr grouped by smoking status ----
+HINTS_subset %>% group_by(smokeStat) %>%summarise(mean_age=mean(Age), sd_age= sd(Age), var_age =var(Age))
+# A tibble: 3 × 4
+  smokeStat mean_age sd_age var_age
+      <int>    <dbl>  <dbl>   <dbl>
+1         1     54.5   14.5    212.
+2         2     61.4   14.8    219.
+3         3     53.4   17.0    290.
+
+# ---- B2.II: Using skimr ----
+install.packages("skimr")
+library(skimr)
+skim(HINTS_subset)
+── Data Summary ────────────────────────
+                           Values      
+Name                       HINTS_subset
+Number of rows             2402        
+Number of columns          8           
+_______________________                
+Column type frequency:                 
+  numeric                  8           
+________________________               
+Group variables            None        
+
+── Variable type: numeric ────────────────────────────────────────────────────────────────────────────────────────
+  skim_variable                 n_missing complete_rate   mean      sd   p0 p25  p50   p75   p100 hist 
+1 QualityCare                           0             1   2.00   0.894  1     1  2     3      5   ▆▇▃▁▁
+2 Age                                   0             1  55.6   16.6   18    43 58    68    100   ▃▅▇▅▁
+3 BirthGender                           0             1   1.58   0.493  1     1  2     2      2   ▆▁▁▁▇
+4 smokeStat                             0             1   2.53   0.672  1     2  3     3      3   ▁▁▃▁▇
+5 RaceEthn5                             0             1   1.70   1.09   1     1  1     2      5   ▇▂▂▁▁
+6 AvgDrinksPerWeek                      0             1   3.36   6.59   0     0  0     4     70   ▇▁▁▁▁
+7 WeeklyMinutesModerateExercise         0             1 162.   271.     0     0 90   210   4620   ▇▁▁▁▁
+8 BMI                                   0             1  28.6    6.54  10.9  24 27.5  31.9   73.8 ▂▇▁▁▁
+
+#---- B3: Create a summary function ----
+my_summary_func<- function(x) {list(five_number= fivenum(x), mean=mean(x), sd= sd(x), var=var(x))}
+
+# ---- Example usage of the function ----
+my_summary_func(HINTS_subset$Age)
+$five_number
+[1]  18  43  58  68 100
+
+$mean
+[1] 55.59117
+
+$sd
+[1] 16.57902
+
+$var
+[1] 274.864
+
+my_summary_func(HINTS_subset$BMI)
+$five_number
+[1] 10.9 24.0 27.5 31.9 73.8
+
+$mean
+[1] 28.60704
+
+$sd
+[1] 6.538369
+
+$var
+[1] 42.75028
 
 # Part C: Univariate visualization
 ## Visualizations & Categorical variables
